@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 internal class SimpleCalculatorTestWithMock {
 
     @Test
-    fun calculate_addInts_confirmCallToAdd() { // InteractionTesting with isolation framework
+    fun calculate_addInts_confirmCallToAdd() { // Interaction testing with isolation framework
         // Given
         val operationMock = mockk<Operation>()
         every { operationMock.add(1,1) } returns 2
@@ -24,7 +24,7 @@ internal class SimpleCalculatorTestWithMock {
     }
 
     @Test
-    fun calculate_multiplyInts_confirmSuccessOperationsWithStub() { // InteractionTesting with spy
+    fun calculate_multiplyInts_confirmSuccessOperationsWithStub() {
         // Given
         val operationStub = mockk<Operation>()
         every { operationStub.add(1,1) } returns 2
@@ -39,7 +39,7 @@ internal class SimpleCalculatorTestWithMock {
         assertEquals(2, result) // asserting against stubs is an anti-pattern
     }
     @Test
-    fun calculate_multiplyInts_confirmCallToMultiply() { // InteractionTesting with spy
+    fun calculate_multiplyInts_confirmCallToMultiply() { // Interaction testing with spy
         // Given
         val operationMultiplySpy = OperationMultiplySpy()
         val calculator = SimpleCalculator(operationMultiplySpy)
