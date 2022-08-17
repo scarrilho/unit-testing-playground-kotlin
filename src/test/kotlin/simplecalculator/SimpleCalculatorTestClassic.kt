@@ -7,20 +7,20 @@ internal class SimpleCalculatorTestClassic {
 
     @Test
     fun calculate_addInts_returnCorrectResult() { // Value based test
-        // Arrange
+        // Given
         val operation = OperationImpl()
         val calculator = SimpleCalculator(operation)
 
-        // Act
+        // When
         val result = calculator.calculate(1, 1, "+")
 
-        // Assert
+        // Then
         assertEquals(2, result)
     }
 
     @Test
     fun getCount_successfulOperationFirstTime_countIsOne() { // State based test
-        // Arrange
+        // Given
         val operation = OperationImpl()
         val calculator = SimpleCalculator(operation)
 
@@ -34,7 +34,7 @@ internal class SimpleCalculatorTestClassic {
 
     @Test
     fun reset_resetWhenCountIsThree_countIsZero() { // State based test
-        // Arrange
+        // Given
         val operation = OperationImpl()
         val calculator = SimpleCalculator(operation)
 
@@ -44,13 +44,12 @@ internal class SimpleCalculatorTestClassic {
 
         val initialCount = calculator.getCount()
 
-        // Act
+        // When
         calculator.reset()
         val finalCount = calculator.getCount()
 
-        // Assert
+        // Then
         assertEquals(3, initialCount)
         assertEquals(0, finalCount)
     }
-
 }

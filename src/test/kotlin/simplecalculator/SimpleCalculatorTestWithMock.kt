@@ -1,5 +1,6 @@
 package simplecalculator
 
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
@@ -9,28 +10,45 @@ internal class SimpleCalculatorTestWithMock {
 
     @Test
     fun calculate_addInts_confirmCallToAdd() { // InteractionTesting with isolation framework
-        // Arrange
-        val operationMock = mockk<Operation>(relaxed = true)
+        // Given
+        val operationMock = mockk<Operation>()
+        every { operationMock.add(1,1) } returns 2
+
         val calculator = SimpleCalculator(operationMock)
 
-        // Act
+        // When
         calculator.calculate(1, 1, "+")
 
-        // Assert
+        // Then
         verify(exactly = 1) { operationMock.add(any(), any()) }
     }
 
     @Test
+    fun calculate_multiplyInts_confirmSuccessOperationsWithStub() { // InteractionTesting with spy
+        // Given
+        val operationStub = mockk<Operation>()
+        every { operationStub.add(1,1) } returns 2
+
+        val calculator = SimpleCalculator(operationStub)
+
+        // When
+        val result = calculator.calculate(1, 1, "+")
+
+        // Then
+        assertEquals(1, calculator.getCount())
+        assertEquals(2, result) // asserting against stubs is an anti-pattern
+    }
+    @Test
     fun calculate_multiplyInts_confirmCallToMultiply() { // InteractionTesting with spy
-        // Arrange
+        // Given
         val operationMultiplySpy = OperationMultiplySpy()
         val calculator = SimpleCalculator(operationMultiplySpy)
 
-        // Act
+        // When
         calculator.calculate(2, 2, "*")
         val numOfCallsToMultiply = operationMultiplySpy.multiplyCallsCount
 
-        // Assert
+        // Then
         assertEquals(1, numOfCallsToMultiply)
     }
 }
