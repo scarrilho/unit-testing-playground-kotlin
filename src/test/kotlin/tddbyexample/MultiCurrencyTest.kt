@@ -21,8 +21,8 @@ internal class MultiCurrencyTest {
         assertNotEquals(Dollar(5), Dollar(6))
         assertEquals(Franc(5), Franc(5))
         assertNotEquals(Franc(5), Franc(6))
+        assertEquals(Franc(5) as Money, Dollar(5) as Money)
     }
-
 
     @Test
     fun testFrancMultiplication() {
