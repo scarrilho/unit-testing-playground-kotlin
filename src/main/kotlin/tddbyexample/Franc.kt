@@ -1,7 +1,7 @@
 package tddbyexample
 
 class Franc(amount: Int) : Money(amount) {
-    fun times(multiplier: Int): Franc {
+    override fun times(multiplier: Int): Money {
         return Franc(amount*multiplier)
     }
 }
