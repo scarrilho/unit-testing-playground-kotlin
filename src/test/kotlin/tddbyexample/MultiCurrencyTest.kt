@@ -20,4 +20,15 @@ internal class MultiCurrencyTest {
         assertEquals(Dollar(5), Dollar(5))
         assertNotEquals(Dollar(5), Dollar(6))
     }
+
+
+    @Test
+    fun testFrancMultiplication() {
+        // Given
+        val five = Franc(5)
+
+        // Then
+        assertEquals(Franc(10), five.times(2))
+        assertEquals(Franc(15), five.times(3))
+    }
 }
