@@ -2,8 +2,8 @@ package tddbyexample
 
  open class Money(protected val amount: Int, protected val currency: String) {
     companion object {
-        fun dollar(amount: Int): Dollar = Dollar(amount, "USD")
-        fun franc(amount: Int): Franc = Franc(amount, "CHF")
+        fun dollar(amount: Int): Money = Money(amount, "USD")
+        fun franc(amount: Int): Money = Money(amount, "CHF")
     }
      fun times(multiplier: Int): Money {
          return Money(amount*multiplier, currency)
