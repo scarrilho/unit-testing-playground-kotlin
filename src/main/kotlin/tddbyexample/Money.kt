@@ -12,10 +12,9 @@ class Money(val amount: Int, private val currency: String): Expression {
     override fun hashCode(): Int {
         return amount
     }
-     fun times(multiplier: Int): Expression {
+     override fun times(multiplier: Int): Expression {
          return Money(amount*multiplier, currency)
      }
-    fun currency(): String = currency
 
      override fun plus(addend: Expression): Expression {
          return Sum(this, addend)
@@ -26,4 +25,5 @@ class Money(val amount: Int, private val currency: String): Expression {
         return Money(amount/rate, to)
     }
 
+    fun currency(): String = currency
 }
