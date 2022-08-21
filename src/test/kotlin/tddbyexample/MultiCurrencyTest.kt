@@ -30,13 +30,61 @@ internal class MultiCurrencyTest {
 
     @Test
     fun testSimpleAddition() {
-        // val sum = Money.dollar(5).plus(Money.dollar(5))
-        // assertEquals(Money.dollar(10), sum)
         val five = Money.dollar(5)
         val sum: Expression = five.plus(five)
         val bank = Bank()
+
         val reduced: Money = bank.reduce(sum, "USD")
 
         assertEquals(Money.dollar(10), reduced)
+    }
+
+    @Test
+    fun testPlusReturnsSum() {
+        val five = Money.dollar(5)
+
+        val result: Expression = five.plus(five)
+        val sum: Sum = result as Sum
+
+        assertEquals(five, sum.augend)
+        assertEquals(five, sum.addend)
+    }
+
+    @Test
+    fun testReduceSum() {
+        val sum: Expression = Sum(Money.dollar(3), Money.dollar(4))
+        val bank = Bank()
+
+        val result: Money = bank.reduce(sum, "USD")
+
+        assertEquals(Money.dollar(7), result)
+    }
+
+    @Test
+    fun testReduceMoney() {
+        val bank = Bank()
+        val result: Money = bank.reduce(Money.dollar(1), "USD")
+
+        assertEquals(Money.dollar(1), result)
+    }
+
+    @Test
+    fun testReduceMoneyDifferentCurrency() {
+        val bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        val result = bank.reduce(Money.franc(2), "USD")
+
+        assertEquals(Money.dollar(1), result)
+    }
+
+    @Test
+    fun testPairEquals() {
+        assertEquals(Pair("abc", "DEF"), Pair("abc", "DEF"))
+        assertNotEquals(Pair("abc", "def"), Pair("abc", "DEF"))
+    }
+
+    @Test
+    fun testIdentityRate() {
+        assertEquals(1, Bank().rate("USD", "USD"))
     }
 }
